@@ -1,0 +1,171 @@
+<?php
+/**Counties in the Republic of Kenya,Governors and their Political Parties.*/
+
+$county_data = "1. Mombasa. – Hassan Ali Joho – ODM,
+2. Kwale. – Salim Mvurya – Jubilee,
+3. Kilifi. – Amason Jeffah Kingi – ODM,
+4. Tana River. – Dhadho Godhana – ODM,
+5. Lamu. – Fahim Yasin Twaha – Jubilee,
+6. Taita-Taveta. – Granton Samboja – WDM K,
+7. Garissa. – Ali Bunow Korane – Jubilee,
+8. Wajir. – Mohamed Abdi Mohamud – Jubilee,
+9. Mandera. – Ali Ibrahim Roba - Jubilee,
+10. Marsabit – Mohamud Mohamed Ali – Jubilee,
+11. Isiolo – Mohamed Abdi Kuti – Independent,
+12. Meru – Kiraitu Murungi – Jubilee,
+13. Tharaka Nithi – Onesmus Muthomi Njuki – Jubilee,
+14. Embu – Martin Nyaga Wambora – Jubilee,
+15. Kitui – Charitu Ngilu – Narc Kenya,
+16. Machakos – Alfred Mutua – CCM,
+17. Makueni – Kivutha Kibwana – WDM K.,
+18. Nyandarua – Francis Kimemia – Jubilee,
+19. Nyeri – Mutahi Kahiga – Jubilee,
+20. Kirinyaga. – Ann Waiguru – Jubilee,
+21. Murang’a – Mwangi wa iria – Jubilee,
+22. Kiambu. – Ferdinand Waititu Babayao – Jubilee,
+23. Turkana. – Josphat Nanok – ODM,
+24. West Pokot. – John Krop Lonyang’apuo. – KANU,
+25. Samburu. – Moses Kasainie Lenolkulal – Jubilee,
+26. Trans-Nzoia. – Patrick Khaemba – FORD Kenya,
+27. Uasin gishu. – Jackson Mandago – Jubilee,
+28. Elgeyo Marakwet. – Alex Tanui Tolgas – Jubilee,
+29. Nandi. – Stephen Sang – Jubilee,
+30. Baringo – Stanley K Kipris. – Jubilee,
+31. Laikipia – Ndiritu Muriithi – Independent,
+32. Nakuru. – Lee Kinyanjui – Jubilee,
+33. Narok – Samuel Kuntai Ole Tunai – Jubilee,
+34. Kajiado. – Joseph Ole Lenku – Jubilee,
+35. Kericho. – Prof.Paul Chepkwony Kiprono – Jubilee,
+36. Bomet. – Hillary Barchok – Jubilee,
+37. Kakamega. – Wyclife Oparanya – ODM,
+38. Vihiga. – Wilber Ottichilo – ODM,
+39. Bungoma. – Wyclife Wafula Wangamiti – ODM,
+40. Busia. – Sospeter Ojaamong – ODM,
+41. Siaya. – Cornel Rasanga. – ODM,
+42. Kisumu. – Peter Anyang Nyong’o. – ODM,
+43. Homabay. – Cyprian Awiti – ODM,
+44. Migori. – Zachary Okoth Obado – ODM,
+45. Kisii. – James Ongware – ODM,
+46. Nyamira. – John Nyangarama Obiena - ODM,
+47. Nairobi. – Mike Sonko Mbuvi Kioko – Jubilee";
+
+/**You should not modify anything above this line*/
+
+// @TODO : Your code starts here
+$explodeInfo = explode(",",$county_data);
+$arrlength = count($explodeInfo);
+$unwantedCharacters = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9","."," ' ");
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css">
+  <title>GOVORNERS IN KENYA</title>
+  <style>
+
+  table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+
+  </style>
+</head>
+
+<body>
+
+
+        <table>
+          <thead>
+            <tr>
+              <th># </th>
+              <th>Name</th>
+              <th colspan="2">Governor</th>
+              <th>Website</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $j=1;
+            $jubilee = 1;
+            $wdm = 0;
+            $odm = 0;
+            for($x = 0; $x < $arrlength; $x++) {
+              $extract = explode(" – ",$explodeInfo[$x]);
+              $datalength = count($extract);?>
+            <tr>
+              <td><?php echo $j++?></td>
+              <td>
+                <?php
+                  $strippedData = str_replace($unwantedCharacters, "", $extract[0]);
+                  echo $strippedData;?>
+              </td>
+              <td>
+                <?php
+                    echo $extract[1];?>
+              </td>
+              <td style="border-left: hidden;"><?php
+              if(!empty($extract[2])){
+                if($extract[2] == "WDM K."){
+
+                  echo "WDM";
+                  $wdm++;
+                }else{
+                  echo $extract[2];
+                }
+              }
+              else {
+                if(strpos($extract[1],"- Jubilee")){
+
+
+                  echo "Jubilee";
+                  $jubilee++;
+                }
+                elseif(strpos($extract[1],"- ODM")){
+                	 $odm++;
+                	 echo "ODM";
+
+                }
+              }?></td>
+              <?php
+                $strippedData = str_replace($unwantedCharacters, "", $extract[0]);
+                $link = strtolower(str_replace(' ', '', $strippedData));?>
+              <td><a target="_BLANK"
+                  href="http://<?php echo $link?>.go.ke">http://<?php echo $link;?>.go.ke</a></td>
+            </tr>
+            <?php
+              }
+            ?>
+          </tbody>
+          <tfoot>
+          	<tr>
+          		<th>Party</th>
+          		<th>No. of Governors</th>
+          	</tr>
+          	<tr>
+          		<td>Jubilee</td>
+          		<td><?php echo $jubilee ?></td>
+          	</tr>
+          	<tr>
+          		<td>ODM</td>
+          		<td><?php echo $odm ?></td>
+          	</tr>
+          	<tr>
+          		<td>WDM. K</td>
+          		<td><?php echo $wdm ?></td>
+          	</tr>
+
+          </tfoot>
+        </table>
+</body>
+
+</html>
